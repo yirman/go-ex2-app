@@ -76,7 +76,7 @@ func NewEntry(c *gin.Context) {
 	}
 
 	ctx := context.Background()
-	sa := option.WithCredentialsFile("ex2-app-371814-firebase-adminsdk-j4726-fb6e70bd2f.json")
+	sa := option.WithCredentialsFile("ex2-app-firebase-credentials.json")
 	app, err := firebase.NewApp(ctx, nil, sa)
 	if err != nil {
 		log.Fatalln(err)
