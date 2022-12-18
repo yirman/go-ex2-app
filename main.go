@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	firebase "firebase.google.com/go"
 	"github.com/gin-gonic/gin"
@@ -19,6 +20,7 @@ type Entry struct {
 	Author  string `json:"author" binding:"required" firestore:"author"`
 	Title   string `json:"title" binding:"required" firestore:"title"`
 	Content string `json:"content" binding:"required" firestore:"content"`
+	Date    string `json:"date,omitempty" firestore:"date"`
 }
 
 func main() {
@@ -89,6 +91,7 @@ func NewEntry(c *gin.Context) {
 
 	docRef := client.Collection("entries").NewDoc()
 	json.Id = docRef.ID
+	json.Date = time.Now().UTC().String()
 	writeRes, err := docRef.Set(ctx, json)
 
 	fmt.Println(docRef)
